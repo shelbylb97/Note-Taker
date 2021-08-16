@@ -45,13 +45,6 @@ const writeToFile = (destination, content) =>
     });
   };
 
-
-// GET Route for retrieving notes
-app.get('/api/notes', (req, res) => {
-    console.info(`${req.method} request received for notes`);
-    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
-  });
-
   // POST Route for a new note
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add a note`);
@@ -70,6 +63,31 @@ app.post('/api/notes', (req, res) => {
       res.error('Error in adding note');
     }
   });
+
+  // GET Route for retrieving notes
+app.get('/api/notes', (req, res) => {
+    console.info(`${req.method} request received for notes`);
+    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
+  });
+
+ // POST route for editing
+
+ //POST route for deleting
+ app.delete("/api/notes/:id", function(req, res) {
+
+    let noteId = req.params.id;
+    let newId = 0;
+    console.log(`Deleting note with id ${noteId}`);
+    data = data.filter(currentNote => {
+       return currentNote.id != noteId;
+    });
+    for (currentNote of data) {
+        currentNote.id = newId.toString();
+        newId++;
+    }
+    fs.writeFileSync("./db/db.json", JSON.stringify(data));
+    res.json(data);
+}); 
 
 // server check
 app.listen(5000, function()

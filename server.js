@@ -5,7 +5,7 @@ const path = require('path');
 const util = require('util');
 const fs = require('fs');
 //port
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 const app = express(); 
 
 // Middleware for parsing JSON and urlencoded form data

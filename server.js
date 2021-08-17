@@ -16,7 +16,7 @@ app.use(express.static('public'));
 
 
 //get root route
-app.get('/', (req, res) =>
+app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
